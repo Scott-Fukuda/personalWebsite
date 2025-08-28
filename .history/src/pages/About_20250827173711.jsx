@@ -106,9 +106,9 @@ export default function About() {
           <h2 className="text-2xl font-bold mb-6 text-center">Skills & Technologies</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              "React", "JavaScript", "Python", "Java", 
-              "Node.js", "SQL", "Git", "AWS",
-              "Machine Learning", "Data Structures", "Algorithms", "System Design"
+              "React", "JavaScript", "Python", 
+              "Java", "SQL", "Git", 
+              "AWS", "Data Structures", "System Design"
             ].map((skill, index) => (
               <div
                 key={skill}
