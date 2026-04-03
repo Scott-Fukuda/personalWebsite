@@ -217,6 +217,7 @@ export default function SignalChain() {
           — click a pedal to view —
         </p>
 
+
         {/* Detail panel */}
         {activePedalData && (
           <div
