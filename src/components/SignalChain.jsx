@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import Pedal from "./Pedal";
 import { pedals } from "../data/experiences";
 
-// Row layout: [0,1,2] in row 1, [3,4] in row 2
+// Row layout: [0,1,2] in row 1, [3,4,5] in row 2
 const ROW_1 = pedals.slice(0, 3);
 const ROW_2 = pedals.slice(3);
 
@@ -45,10 +45,8 @@ export default function SignalChain() {
       const fromRect = fromEl.getBoundingClientRect();
       const toRect = toEl.getBoundingClientRect();
 
-      // From: right edge, vertical center
       const x1 = fromRect.right - boardRect.left;
       const y1 = fromRect.top + fromRect.height / 2 - boardRect.top;
-      // To: left edge, vertical center
       const x2 = toRect.left - boardRect.left;
       const y2 = toRect.top + toRect.height / 2 - boardRect.top;
 
@@ -62,7 +60,6 @@ export default function SignalChain() {
   }, []);
 
   useEffect(() => {
-    // Small delay to ensure DOM has painted
     const timeout = setTimeout(updateCables, 50);
     window.addEventListener("resize", updateCables);
     return () => {
@@ -94,97 +91,123 @@ export default function SignalChain() {
           Experience
         </h2>
 
-        {/* Pedalboard */}
-        <div
-          ref={boardRef}
-          className="relative rounded-sm py-10 px-6 md:px-12"
-          style={{
-            // Velcro-like crosshatch background
-            backgroundImage:
-              'repeating-linear-gradient(45deg, #0d0d0d 0px, #0d0d0d 3px, #111 3px, #111 7px)',
-            border: '2px solid #1E1E1E',
-            boxShadow: 'inset 0 2px 8px rgba(0,0,0,0.6)',
-          }}
-        >
-          {/* Pedalboard rail top */}
-          <div
-            className="absolute top-0 left-0 right-0 h-3 rounded-t-sm"
-            style={{ background: 'linear-gradient(180deg, #2a2a2a, #1a1a1a)', borderBottom: '1px solid #333' }}
-          />
-          {/* Pedalboard rail bottom */}
-          <div
-            className="absolute bottom-0 left-0 right-0 h-3 rounded-b-sm"
-            style={{ background: 'linear-gradient(0deg, #2a2a2a, #1a1a1a)', borderTop: '1px solid #333' }}
-          />
+        {/* Side-by-side: CSS board + real photo */}
+        <div className="flex flex-col lg:flex-row gap-4 items-stretch">
 
-          {/* Input label */}
-          <div
-            className="absolute left-3 top-1/2 -translate-y-1/2 font-mono text-xs text-muted hidden md:block"
-            style={{ writingMode: 'vertical-rl', transform: 'translateY(-50%) rotate(180deg)', letterSpacing: '0.1em' }}
-          >
-            INPUT ●
-          </div>
-
-          {/* Output label */}
-          <div
-            className="absolute right-3 top-1/2 -translate-y-1/2 font-mono text-xs text-muted hidden md:block"
-            style={{ writingMode: 'vertical-rl', letterSpacing: '0.1em' }}
-          >
-            ● OUTPUT
-          </div>
-
-          {/* SVG cable overlay */}
-          <svg
-            className="absolute inset-0 pointer-events-none"
-            style={{ width: '100%', height: '100%', overflow: 'visible' }}
-            aria-hidden="true"
-          >
-            {cables.map((cable, i) => (
-              <path
-                key={i}
-                d={cable.path}
-                stroke={cable.color}
-                strokeWidth="2.5"
-                strokeOpacity="0.45"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+          {/* Left: CSS Pedalboard */}
+          <div className="flex-1 flex flex-col min-w-0">
+            <p className="font-mono text-xs text-muted mb-2" style={{ letterSpacing: '0.12em' }}>
+              EXPERIENCE BOARD
+            </p>
+            <div
+              ref={boardRef}
+              className="relative rounded-sm py-10 px-6 md:px-8 flex-1"
+              style={{
+                backgroundImage:
+                  'repeating-linear-gradient(45deg, #0d0d0d 0px, #0d0d0d 3px, #111 3px, #111 7px)',
+                border: '2px solid #1E1E1E',
+                boxShadow: 'inset 0 2px 8px rgba(0,0,0,0.6)',
+              }}
+            >
+              {/* Rail top */}
+              <div
+                className="absolute top-0 left-0 right-0 h-3 rounded-t-sm"
+                style={{ background: 'linear-gradient(180deg, #2a2a2a, #1a1a1a)', borderBottom: '1px solid #333' }}
               />
-            ))}
-          </svg>
-
-          {/* Row 1: HS Robotics, Cornell, CUAir */}
-          <div className="flex justify-around items-center mb-8">
-            {ROW_1.map(pedal => (
+              {/* Rail bottom */}
               <div
-                key={pedal.id}
-                ref={el => { pedalRefs.current[pedal.id] = el; }}
+                className="absolute bottom-0 left-0 right-0 h-3 rounded-b-sm"
+                style={{ background: 'linear-gradient(0deg, #2a2a2a, #1a1a1a)', borderTop: '1px solid #333' }}
+              />
+
+              {/* Input label */}
+              <div
+                className="absolute left-3 top-1/2 font-mono text-xs text-muted hidden md:block"
+                style={{ writingMode: 'vertical-rl', transform: 'translateY(-50%) rotate(180deg)', letterSpacing: '0.1em' }}
               >
-                <Pedal
-                  pedal={pedal}
-                  isActive={activePedal === pedal.id}
-                  onClick={() => handlePedalClick(pedal.id)}
-                />
+                INPUT ●
               </div>
-            ))}
+
+              {/* Output label */}
+              <div
+                className="absolute right-3 top-1/2 font-mono text-xs text-muted hidden md:block"
+                style={{ writingMode: 'vertical-rl', transform: 'translateY(-50%)', letterSpacing: '0.1em' }}
+              >
+                ● OUTPUT
+              </div>
+
+              {/* SVG cables */}
+              <svg
+                className="absolute inset-0 pointer-events-none"
+                style={{ width: '100%', height: '100%', overflow: 'visible' }}
+                aria-hidden="true"
+              >
+                {cables.map((cable, i) => (
+                  <path
+                    key={i}
+                    d={cable.path}
+                    stroke={cable.color}
+                    strokeWidth="2.5"
+                    strokeOpacity="0.45"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                ))}
+              </svg>
+
+              {/* Row 1: HS Robotics, Cornell, CUAir */}
+              <div className="flex justify-around items-center mb-8">
+                {ROW_1.map(pedal => (
+                  <div key={pedal.id} ref={el => { pedalRefs.current[pedal.id] = el; }}>
+                    <Pedal
+                      pedal={pedal}
+                      isActive={activePedal === pedal.id}
+                      onClick={() => handlePedalClick(pedal.id)}
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {/* Row 2: CampusCares, NC State, Guitar */}
+              <div className="flex justify-around items-center">
+                {ROW_2.map(pedal => (
+                  <div key={pedal.id} ref={el => { pedalRefs.current[pedal.id] = el; }}>
+                    <Pedal
+                      pedal={pedal}
+                      isActive={activePedal === pedal.id}
+                      onClick={() => handlePedalClick(pedal.id)}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
-          {/* Row 2: CampusCares, NC State, Guitar */}
-          <div className="flex justify-around items-center">
-            {ROW_2.map(pedal => (
-              <div
-                key={pedal.id}
-                ref={el => { pedalRefs.current[pedal.id] = el; }}
-              >
-                <Pedal
-                  pedal={pedal}
-                  isActive={activePedal === pedal.id}
-                  onClick={() => handlePedalClick(pedal.id)}
-                />
-              </div>
-            ))}
+          {/* Right: Real pedalboard photo */}
+          <div className="lg:w-72 flex flex-col flex-shrink-0">
+            <p className="font-mono text-xs text-muted mb-2" style={{ letterSpacing: '0.12em' }}>
+              THE REAL THING
+            </p>
+            <div
+              className="flex-1 overflow-hidden rounded-sm"
+              style={{ border: '2px solid #1E1E1E', minHeight: 200 }}
+            >
+              <img
+                src="/images/real_pedalbaord.PNG"
+                alt="Scott's real pedalboard"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block',
+                  filter: 'brightness(0.85) saturate(0.9)',
+                }}
+              />
+            </div>
           </div>
-        </div>
+
+        </div>{/* end side-by-side */}
 
         {/* Hint */}
         <p
@@ -239,10 +262,7 @@ export default function SignalChain() {
             <ul className="space-y-2 mb-5">
               {activePedalData.bullets.map((bullet, i) => (
                 <li key={i} className="flex gap-3 text-sm">
-                  <span
-                    className="flex-shrink-0 mt-0.5"
-                    style={{ color: activePedalData.ledColor }}
-                  >
+                  <span className="flex-shrink-0 mt-0.5" style={{ color: activePedalData.ledColor }}>
                     —
                   </span>
                   <span className="text-cream" style={{ lineHeight: 1.6 }}>{bullet}</span>

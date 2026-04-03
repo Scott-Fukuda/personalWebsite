@@ -4,6 +4,7 @@ import Story from "./components/Story";
 import SignalChain from "./components/SignalChain";
 import Projects from "./components/Projects";
 import Personal from "./components/Personal";
+import PhotoStrip from "./components/PhotoStrip";
 import Contact from "./components/Contact";
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
         <SignalChain />
         <Projects />
         <Personal />
+        <PhotoStrip />
         <Contact />
       </main>
     </div>

@@ -5,6 +5,7 @@ const interests = [
     detail:
       "I got into CS because I wanted code to do things in the world, not just on a screen. From automatic curtain openers to drone cameras, the physical layer has always been the point.",
     photo: "/images/hardware.jpg",
+    photo2: "/images/hardware2.jpg",
   },
   {
     tag: "LIVE PERFORMANCE",
@@ -12,6 +13,7 @@ const interests = [
     detail:
       "I play electric guitar at Oceanside Christian Fellowship and Cru Cornell — performing for 150–400 people on a bimonthly basis. Music is a way for me to relax and connect with those around me.",
     photo: "/images/music1.JPG",
+    photo2: "/images/music2.png",
   },
   {
     tag: "SERVICE",
@@ -19,6 +21,7 @@ const interests = [
     detail:
       "CampusCares came from a belief that tech should help people, not just impress them. I've been involved in service and community since high school and carry that into every project.",
     photo: "/images/service1.jpeg",
+    photo2: "/images/service2.jpeg",
   },
   {
     tag: "LANGUAGE",
@@ -26,6 +29,7 @@ const interests = [
     detail:
       "Studying Japanese in my free time as a way to connect with my culture!",
     photo: "/images/japanese.jpg",
+    photo2: null,
   },
   {
     tag: "200 LBS",
@@ -33,6 +37,7 @@ const interests = [
     detail:
       "I have a 200-pound dog named Piper. She is the largest thing in any room she enters and the friendliest.",
     photo: "/images/piper.jpg",
+    photo2: null,
   },
 ];
 
@@ -70,22 +75,42 @@ export default function Personal() {
                 borderTop: '1px solid #1E1E1E',
               }}
             >
-              {/* Photo */}
-              {item.photo && (
-                <div style={{ height: 140, overflow: 'hidden' }}>
-                  <img
-                    src={item.photo}
-                    alt={item.label}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      display: 'block',
-                      filter: 'brightness(0.75) saturate(0.8)',
-                    }}
-                  />
-                </div>
-              )}
+              {/* Photos */}
+              <div style={{ display: 'flex', height: 140, overflow: 'hidden' }}>
+                {item.photo && (
+                  <div style={{ flex: 1, overflow: 'hidden' }}>
+                    <img
+                      src={item.photo}
+                      alt={item.label}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        display: 'block',
+                        filter: 'brightness(0.75) saturate(0.8)',
+                      }}
+                    />
+                  </div>
+                )}
+                {item.photo2 && (
+                  <>
+                    <div style={{ width: 1, background: '#0E0E0E', flexShrink: 0 }} />
+                    <div style={{ flex: 1, overflow: 'hidden' }}>
+                      <img
+                        src={item.photo2}
+                        alt={`${item.label} 2`}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          display: 'block',
+                          filter: 'brightness(0.75) saturate(0.8)',
+                        }}
+                      />
+                    </div>
+                  </>
+                )}
+              </div>
 
               {/* Text */}
               <div className="py-6 px-5 flex-1">
