@@ -214,7 +214,7 @@ export default function SignalChain() {
           className="font-mono text-xs text-muted mt-3 text-center"
           style={{ letterSpacing: '0.1em' }}
         >
-          — click a pedal to engage —
+          — click a pedal to view —
         </p>
 
         {/* Detail panel */}
