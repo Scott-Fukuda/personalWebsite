@@ -1,37 +1,19 @@
+import { profile } from '../data/content'
+
 export default function Footer() {
   return (
-    <footer className="bg-white dark:bg-gray-800 shadow mt-12">
-      <div className="max-w-5xl mx-auto p-6">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="text-gray-600 dark:text-gray-300">
-            © 2024 Scott Fukuda. All rights reserved.
-          </div>
-          <div className="flex gap-4 mt-4 md:mt-0">
-            <a 
-              href="https://github.com/Scott-Fukuda" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-gray-600 dark:text-gray-300 hover:text-blue-500"
-            >
-              GitHub
-            </a>
-            <a 
-              href="https://linkedin.com/in/scott-fukuda-3923172ab/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-gray-600 dark:text-gray-300 hover:text-blue-500"
-            >
-              LinkedIn
-            </a>
-            <a 
-              href="mailto:your.email@example.com"
-              className="text-gray-600 dark:text-gray-300 hover:text-blue-500"
-            >
-              Email
-            </a>
-          </div>
+    <footer id="contact" className="footer">
+      <div className="footer-inner">
+        <div>
+          <h2 className="display">Contact</h2>
+          <a className="footer-mail" href={`mailto:${profile.email}`}>{profile.email}</a>
+        </div>
+        <div className="footer-social">
+          <a href={profile.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
         </div>
       </div>
+      <div className="footer-base">SCOTT FUKUDA — 2026</div>
     </footer>
-  );
+  )
 }

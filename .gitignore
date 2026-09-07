@@ -22,3 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Camera/screen-recording originals. Only the web-sized derivatives in
+# public/media/ are committed — see github.md for the source -> shipped map.
+/media/
+/uploads/
+/IMG_9031_Original.jpg
+
+# VS Code Local History extension
+.history/
