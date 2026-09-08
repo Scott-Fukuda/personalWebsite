@@ -1,7 +1,7 @@
 export const profile = {
   name: 'Scott Fukuda',
   eyebrow: "Cornell CS '28 — Ithaca, NY",
-  tagline: 'I build systems where software meets the real hardware and real world people.',
+  tagline: 'I build systems where software meets real hardware and real lives.',
   email: 'sdf72@cornell.edu',
   github: 'https://github.com/Scott-Fukuda',
   linkedin: 'https://www.linkedin.com/in/scott-fukuda-3923172ab/',
