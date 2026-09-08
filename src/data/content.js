@@ -81,7 +81,7 @@ export const projects = [
   {
     id: 'pedalboard',
     title: 'Custom-Built Effects Processor System',
-    body: 'Here is the custom electric guitar effects processing system I use whenever performing — built on Logic Pro and an audio interface, so every patch and signal path is mine.',
+    body: 'Here is the custom electric guitar effects processing system I use whenever performing, building off Logic Pro\'s effects library.',
     tags: ['Logic Pro', 'Audio Interface', 'Live Performance'],
     video: {
       src: '/media/pedalboard-demo.mp4',
